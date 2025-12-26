@@ -1,8 +1,9 @@
 package file
 
 import (
-	"encoding/json"
 	"os"
+	"path/filepath"
+	"strings"
 )
 
 func ReadFile(name string) []byte {
@@ -13,10 +14,9 @@ func ReadFile(name string) []byte {
 	return file
 }
 
-func isJsonFile(file []byte) bool {
-	var js json.RawMessage
-	flag := json.Unmarshal(file, &js) == nil
-	return flag
+func IsJsonFile(name string) bool {
+	ext := filepath.Ext(name)
+	return strings.ToLower(ext) == ".json"
 }
 
 func WriteFile(file []byte, name string) {
