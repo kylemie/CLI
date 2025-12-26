@@ -10,11 +10,13 @@ func ReadFile(name string) []byte {
 	if err != nil {
 		panic(err)
 	}
-	err = json.Unmarshal(file, &name)
-	if err != nil {
-		panic(err)
-	}
 	return file
+}
+
+func isJsonFile(file []byte) bool {
+	var js json.RawMessage
+	flag := json.Unmarshal(file, &js) == nil
+	return flag
 }
 
 func WriteFile(file []byte, name string) {
